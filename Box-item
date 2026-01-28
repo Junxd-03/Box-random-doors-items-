@@ -1,5 +1,5 @@
 --==================================================
--- WOOD CRATE (GLOW EDITION) - DOORS ROOM 0
+-- WOOD CRATE (INSTANT SPAWN) - DOORS ROOM 0
 --==================================================
 
 local Players = game:GetService("Players")
@@ -16,20 +16,15 @@ local items = {
 local CRATE_TEXTURE = "rbxassetid://PUT_TEXTURE_ID_HERE"
 
 -- 🎨 CÀI ĐẶT MÀU SẮC
-local DARK_WOOD_COLOR = Color3.fromRGB(60, 40, 25)   -- Màu thân hộp
-local ACCENT_COLOR = Color3.fromRGB(30, 20, 10)      -- Màu chữ X và Viền
-local GLOW_COLOR = Color3.fromRGB(255, 200, 100)    -- Màu phát sáng (vàng nhạt ấm)
+local DARK_WOOD_COLOR = Color3.fromRGB(60, 40, 25)
+local ACCENT_COLOR = Color3.fromRGB(30, 20, 10)
+local GLOW_COLOR = Color3.fromRGB(255, 200, 100)
 
--- ĐỢI ROOM 0
-task.wait(2)
-local rooms = workspace:WaitForChild("CurrentRooms")
-local room0
-repeat
-    room0 = rooms:FindFirstChild("0")
-    task.wait()
-until room0
+-- 🚀 TÌM PHÒNG 0 VÀ BÀN NGAY LẬP TỨC (KHÔNG ĐỢI)
+local rooms = workspace:FindFirstChild("CurrentRooms")
+local room0 = rooms and rooms:FindFirstChild("0")
+if not room0 then return end
 
--- TÌM BÀN
 local desks = {}
 for _, v in pairs(room0:GetDescendants()) do
     if v:IsA("BasePart") then
@@ -51,11 +46,11 @@ box.Material = Enum.Material.SmoothPlastic
 box.Color = DARK_WOOD_COLOR
 box.Parent = workspace
 
--- ✨ THÊM HIỆU ỨNG PHÁT SÁNG (GLOW)
+-- ✨ HIỆU ỨNG PHÁT SÁNG NHẸ
 local light = Instance.new("PointLight")
 light.Color = GLOW_COLOR
-light.Brightness = 2 -- Độ sáng vừa phải
-light.Range = 8      -- Khoảng cách sáng xung quanh
+light.Brightness = 2
+light.Range = 8
 light.Shadows = true
 light.Parent = box
 
@@ -111,4 +106,4 @@ prompt.Triggered:Connect(function()
     box:Destroy()
 end)
 
-print("✅ Thùng gỗ phát sáng đã được tạo thành công!")
+print("✅ Thùng gỗ đã spawn tức thì khi Execute!")
